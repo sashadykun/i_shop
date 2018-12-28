@@ -53,7 +53,7 @@ class Nav extends Component {
     }
 
     renderLinks = () => {
-        const auth = true;
+        const auth = false;
 
         let authLinks = [];
         // let nonAuthLinks = [];
