@@ -17,7 +17,6 @@ app.use(express.json());
 
 app.use(express.static(resolve(__dirname, 'client', 'dist')));
 
-
 require('./routes')(app);
 
 app.get('/', (req, res) => {
