@@ -2,4 +2,6 @@ const passport = require('passport');
 
 require('../services/passport');
 
-exports.requireSignIn = passport.authenticate('local', { session: false})
+
+exports.requireBasicAuth = passport.authenticate('jwt', {session: false});
+exports.requireSignIn = passport.authenticate('local', { session: false});
