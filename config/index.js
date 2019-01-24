@@ -1,3 +1,5 @@
 module.exports = {
-    dbConfig: require('./db')
+    
+    dbConfig: require('./db'),
+    jwtConfig: require('./jwt')
 }

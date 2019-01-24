@@ -1,6 +1,8 @@
+const { users }= require('../../db/models')
 const validation = require('../../helpers/validation');
+const { tokenForUser, userDataToSend } = require('../../helpers/auth');
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
 
     const { body: { firstName, lastName, email, password} } = req;
     
@@ -37,10 +39,31 @@ module.exports = (req, res) => {
             });
         }
 
+        console.log('MADE IT HERE!');
+
+        const existingUser = await users.findOne({
+            where: {
+                email: email
+            }
+        })
+
+        if (existingUser){
+            return res.status(422).send('User already exists');
+        }
+
+        const newUser = users.build({
+            email,
+            firstName,
+            lastName,
+            password
+        });
+
+        await newUser.save();
         
         res.send({
             success: true,
-            message: 'This is the sign up endpoint'
+            token: tokenForUser(newUser),
+            user: userDataToSend(newUser)
         })
     } catch(err){
         console.log('Sign Up Error:', err);
