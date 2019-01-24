@@ -7,7 +7,7 @@ import Form from './form';
 class SignIn extends Component {
 
     handleSignIn = (values) => {
-        console.log("Sign in" , values);
+       
 
         this.props.signIn(values);
     }

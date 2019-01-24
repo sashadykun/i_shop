@@ -6,9 +6,12 @@ import { authHeaders } from '../helpers';
 
 export const jwtSignIn = () => async dispatch => {
     try{
-        const resp = await axios.get('/auth/jwt-sign-in', authHeaders());
+        const {data: {user}} = await axios.get('/auth/jwt-sign-in', authHeaders());
 
-        console.log('JWT sign in resp:', resp);
+        dispatch({
+            type: types.SIGN_IN,
+            user
+        });
     }catch(err){
         console.log('JWT Sign In Error:', err);
     }
@@ -16,11 +19,17 @@ export const jwtSignIn = () => async dispatch => {
 
 export const signIn = userInfo => async dispatch => {
     try {
-        const resp = await axios.post('/auth/sign-in', userInfo);
+        const {data: {token, user} } = await axios.post('/auth/sign-in', userInfo);
 
-        console.log('Sign in resp', resp);
+        
+        
 
-        localStorage.setItem('token', resp.data.token)
+        localStorage.setItem('token', token);
+
+        dispatch({
+            type: types.SIGN_IN,
+            user
+        });
 
     }catch(err){
         console.log('Sign up Error:', err.message);
@@ -29,9 +38,24 @@ export const signIn = userInfo => async dispatch => {
 
 export const signUp = userInfo => async dispatch => {
     try {
-        const resp = await axios.post('/auth/sign-up', userInfo);
-        console.log('sign up sesp:', resp);
+        const {data: { token, user } } = await axios.post('/auth/sign-up', userInfo);
+        
+
+
+        localStorage.setItem('token', token);
+
+        dispatch({
+            type: types.SIGN_UP,
+            user
+        });
+
     }catch(err){
         console.log('Sign up Error:', err.message);
     }
+}
+
+export const signOut = () => {
+    localStorage.removeItem('token');
+
+    return { type: types.SIGN_OUT}
 }
