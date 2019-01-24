@@ -1,7 +1,7 @@
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize';
 import {Route, Switch} from 'react-router-dom';
-
+import auth from '../hoc/auth';
 import React from 'react';
 import AccountRoutes from './account';
 import Home from './home';
