@@ -30,7 +30,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^4.42.0",
+    "sequelize": "^5.15.1",
     "webpack-dev-server": "^3.1.14"
   },
   "devDependencies": {
